@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: 'Arto Hellas' }]);
@@ -9,19 +9,9 @@ const App = () => {
     setNewName(event.target.value);
   };
 
-  // let res;
-  // useEffect(() => {
-  //   res = persons.map((person, index) => {
-  //     return <p key={index}>{person.name}</p>;
-  //   });
-  // }, [persons]);
-
   const handleSubmit = event => {
-    // debugger;
     setPersons([...persons, { name: newName }]);
     event.preventDefault();
-    // console.log(event.target.value);
-    // setNewName(event.target.value);
   };
 
   return (
@@ -36,11 +26,9 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {/* {JSON.stringify(persons)} */}
       {persons.map((person, index) => {
         return <p key={index}>Name: {person.name}</p>;
       })}
-      {/* res: {res} */}
     </div>
   );
 };
