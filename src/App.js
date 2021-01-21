@@ -10,8 +10,13 @@ const App = () => {
   };
 
   const handleSubmit = event => {
-    setPersons([...persons, { name: newName }]);
     event.preventDefault();
+    let hasName = persons.map(person => person.name).includes(newName);
+    if (hasName) {
+      alert('Name already exists');
+      return;
+    }
+    setPersons([...persons, { name: newName }]);
   };
 
   return (
