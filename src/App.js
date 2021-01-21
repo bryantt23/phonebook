@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PersonForm from './PersonForm';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -7,6 +8,7 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345' },
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]);
+
   const [newName, setNewName] = useState('Add name here');
   const [newNumber, setNewNumber] = useState('Add number here');
   const [filterName, setFilterName] = useState('');
@@ -26,16 +28,6 @@ const App = () => {
     }
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    let hasName = persons.map(person => person.name).includes(newName);
-    if (hasName) {
-      alert(newName + ' already exists');
-      return;
-    }
-    setPersons([...persons, { name: newName, number: newNumber }]);
-  };
-
   let filtered = persons.filter(person =>
     person.name.toLowerCase().startsWith(filterName.toLowerCase())
   );
@@ -52,23 +44,13 @@ const App = () => {
       <h2>Phonebook</h2>
       filter shown with{' '}
       <input onChange={handleChange} value={filterName} name='filterName' />
-      <form onSubmit={handleSubmit}>
-        <div>
-          name:{' '}
-          <input onChange={handleChange} value={newName} name='changeName' />
-        </div>
-        <div>
-          number:{' '}
-          <input
-            onChange={handleChange}
-            value={newNumber}
-            name='changeNumber'
-          />
-        </div>
-        <div>
-          <button type='submit'>add</button>
-        </div>
-      </form>
+      <PersonForm
+        handleChange={handleChange}
+        persons={persons}
+        setPersons={setPersons}
+        newName={newName}
+        newNumber={newNumber}
+      />
       <h2>Numbers</h2>
       {res}
     </div>
