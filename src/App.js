@@ -9,17 +9,7 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345' },
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]);
-
   const [filterName, setFilterName] = useState('');
-
-  const handleChange = event => {
-    const target = event.target;
-    const name = target.name;
-    console.log(event.target.value);
-    if (name === 'filterName') {
-      setFilterName(event.target.value);
-    }
-  };
 
   let filtered = persons.filter(person =>
     person.name.toLowerCase().startsWith(filterName.toLowerCase())
@@ -32,12 +22,18 @@ const App = () => {
       </p>
     );
   });
+
   return (
     <div>
       <h2>Phonebook</h2>
-      filter shown with{' '}
-      <input onChange={handleChange} value={filterName} name='filterName' />
-      {/* <Filter handleChange={handleChange} /> */}
+      {/* filter shown with{' '}
+      <input onChange={handleChange} value={filterName} name='filterName' /> */}
+      <Filter
+        persons={persons}
+        setPersons={setPersons}
+        filterName={filterName}
+        setFilterName={setFilterName}
+      />
       <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       {res}
