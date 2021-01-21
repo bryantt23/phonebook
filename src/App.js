@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PersonForm from './PersonForm';
+import Filter from './Filter';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -9,20 +10,12 @@ const App = () => {
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]);
 
-  const [newName, setNewName] = useState('Add name here');
-  const [newNumber, setNewNumber] = useState('Add number here');
   const [filterName, setFilterName] = useState('');
 
   const handleChange = event => {
     const target = event.target;
     const name = target.name;
     console.log(event.target.value);
-    if (name === 'changeName') {
-      setNewName(event.target.value);
-    }
-    if (name === 'changeNumber') {
-      setNewNumber(event.target.value);
-    }
     if (name === 'filterName') {
       setFilterName(event.target.value);
     }
@@ -44,13 +37,8 @@ const App = () => {
       <h2>Phonebook</h2>
       filter shown with{' '}
       <input onChange={handleChange} value={filterName} name='filterName' />
-      <PersonForm
-        handleChange={handleChange}
-        persons={persons}
-        setPersons={setPersons}
-        newName={newName}
-        newNumber={newNumber}
-      />
+      {/* <Filter handleChange={handleChange} /> */}
+      <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
       {res}
     </div>
