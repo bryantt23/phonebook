@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PersonForm from './PersonForm';
 import Filter from './Filter';
+import Persons from './Persons';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -11,32 +12,17 @@ const App = () => {
   ]);
   const [filterName, setFilterName] = useState('');
 
-  let filtered = persons.filter(person =>
-    person.name.toLowerCase().startsWith(filterName.toLowerCase())
-  );
-
-  const res = filtered.map((person, index) => {
-    return (
-      <p key={index}>
-        Name: {person.name}, Number: {person.number}
-      </p>
-    );
-  });
-
   return (
     <div>
       <h2>Phonebook</h2>
-      {/* filter shown with{' '}
-      <input onChange={handleChange} value={filterName} name='filterName' /> */}
       <Filter
         persons={persons}
-        setPersons={setPersons}
         filterName={filterName}
         setFilterName={setFilterName}
       />
       <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      {res}
+      <Persons persons={persons} filterName={filterName} />
     </div>
   );
 };

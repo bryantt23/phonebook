@@ -28,6 +28,7 @@ export default function PersonForm({ persons, setPersons }) {
 
   return (
     <div>
+      <h3>Add a new</h3>
       <form onSubmit={handleSubmit}>
         <div>
           name:{' '}
