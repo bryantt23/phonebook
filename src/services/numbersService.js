@@ -12,3 +12,7 @@ export const addNumber = newObject => {
 export const deleteNumber = id => {
   return axios.delete(baseUrl + '/' + id);
 };
+
+export const updateNumber = updatedPerson => {
+  return axios.put(baseUrl + '/' + updatedPerson.id, updatedPerson);
+};

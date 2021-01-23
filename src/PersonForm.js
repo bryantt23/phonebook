@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addNumber } from './services/numbersService';
+import { addNumber, updateNumber } from './services/numbersService';
 
 export default function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('Add name here');
@@ -9,7 +9,27 @@ export default function PersonForm({ persons, setPersons }) {
     event.preventDefault();
     let hasName = persons.map(person => person.name).includes(newName);
     if (hasName) {
-      alert(newName + ' already exists');
+      const curPerson = persons.find(person => person.name === newName);
+      console.log('curPerson', curPerson);
+      if (
+        window.confirm(
+          newName +
+            ' already exists in the phone book, replace the old number with a new one?'
+        )
+      ) {
+        const updatedPerson = { ...curPerson, number: newNumber };
+        updateNumber(updatedPerson)
+          .then(res => {
+            console.log(res);
+            const personsUpdated = persons.map(person => {
+              return person.id === updatedPerson.id ? updatedPerson : person;
+            });
+            setPersons(personsUpdated);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
       return;
     }
     const newPerson = { name: newName, number: newNumber, id: Date.now() };
