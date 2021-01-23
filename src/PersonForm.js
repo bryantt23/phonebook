@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addNumber } from './services/numbers';
+import { addNumber } from './services/numbersService';
 
 export default function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('Add name here');

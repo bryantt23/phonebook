@@ -8,3 +8,7 @@ export const getAllNumbers = () => {
 export const addNumber = newObject => {
   return axios.post(baseUrl, newObject);
 };
+
+export const deleteNumber = id => {
+  return axios.delete(baseUrl + '/' + id);
+};
