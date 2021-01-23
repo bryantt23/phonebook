@@ -3,13 +3,15 @@ import PersonForm from './PersonForm';
 import Filter from './Filter';
 import Persons from './Persons';
 import axios from 'axios';
+import { getAllNumbers } from './services/numbers';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [filterName, setFilterName] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then(res => {
+    // axios.get('http://localhost:3001/persons')
+    getAllNumbers().then(res => {
       setPersons(res.data);
     });
   }, []);
