@@ -38,6 +38,13 @@ export default function PersonForm({ persons, setPersons }) {
           }, 5000);
         } catch (error) {
           console.log(curPerson);
+          setMessage(
+            `Information of ${curPerson.name} has already been removed from server`
+          );
+          setClassStyle('error');
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
           console.log(error);
         }
 
@@ -64,7 +71,7 @@ export default function PersonForm({ persons, setPersons }) {
         setClassStyle('success');
         setTimeout(() => {
           setMessage(null);
-        }, 15000);
+        }, 5000);
       })
       .catch(err => {
         console.log(err);
