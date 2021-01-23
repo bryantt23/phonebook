@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('Add name here');
@@ -11,7 +12,16 @@ export default function PersonForm({ persons, setPersons }) {
       alert(newName + ' already exists');
       return;
     }
-    setPersons([...persons, { name: newName, number: newNumber }]);
+    const newPerson = { name: newName, number: newNumber, id: Date.now() };
+    axios
+      .post('http://localhost:3001/persons', newPerson)
+      .then(res => {
+        console.log(res.data);
+        setPersons([...persons, newPerson]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const handleChange = event => {
