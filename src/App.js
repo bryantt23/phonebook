@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PersonForm from './PersonForm';
 import Filter from './Filter';
 import Persons from './Persons';
-import axios from 'axios';
 import { getAllNumbers } from './services/numbers';
 
 const App = () => {
@@ -10,7 +9,6 @@ const App = () => {
   const [filterName, setFilterName] = useState('');
 
   useEffect(() => {
-    // axios.get('http://localhost:3001/persons')
     getAllNumbers().then(res => {
       setPersons(res.data);
     });

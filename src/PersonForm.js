@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { addNumber } from './services/numbers';
 
 export default function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('Add name here');
@@ -13,8 +13,7 @@ export default function PersonForm({ persons, setPersons }) {
       return;
     }
     const newPerson = { name: newName, number: newNumber, id: Date.now() };
-    axios
-      .post('http://localhost:3001/persons', newPerson)
+    addNumber(newPerson)
       .then(res => {
         console.log(res.data);
         setPersons([...persons, newPerson]);
