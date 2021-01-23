@@ -3,7 +3,8 @@ import { addNumber, updateNumber } from './services/numbersService';
 import Notification from './Notification';
 
 export default function PersonForm({ persons, setPersons }) {
-  const [successMessage, setSuccessMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [classStyle, setClassStyle] = useState('');
 
   const [newName, setNewName] = useState('Add name here');
   const [newNumber, setNewNumber] = useState('Add number here');
@@ -28,13 +29,15 @@ export default function PersonForm({ persons, setPersons }) {
           });
           setPersons(personsUpdated);
           console.log(res);
-          setSuccessMessage(
+          setMessage(
             `${curPerson.name}'s number has been updated from ${curPerson.number} to ${newNumber}`
           );
+          setClassStyle('success');
           setTimeout(() => {
-            setSuccessMessage(null);
+            setMessage(null);
           }, 5000);
         } catch (error) {
+          console.log(curPerson);
           console.log(error);
         }
 
@@ -57,10 +60,11 @@ export default function PersonForm({ persons, setPersons }) {
       .then(res => {
         console.log(res.data);
         setPersons([...persons, newPerson]);
-        setSuccessMessage(`Added ${newPerson.name}`);
+        setMessage(`Added ${newPerson.name}`);
+        setClassStyle('success');
         setTimeout(() => {
-          setSuccessMessage(null);
-        }, 5000);
+          setMessage(null);
+        }, 15000);
       })
       .catch(err => {
         console.log(err);
@@ -82,7 +86,7 @@ export default function PersonForm({ persons, setPersons }) {
   return (
     <div>
       <h3>Add a new</h3>
-      <Notification message={successMessage} />
+      <Notification message={message} classStyle={classStyle} />
       <form onSubmit={handleSubmit}>
         <div>
           name:{' '}
