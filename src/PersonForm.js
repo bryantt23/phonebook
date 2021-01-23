@@ -5,7 +5,7 @@ export default function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('Add name here');
   const [newNumber, setNewNumber] = useState('Add number here');
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     let hasName = persons.map(person => person.name).includes(newName);
     if (hasName) {
@@ -18,17 +18,28 @@ export default function PersonForm({ persons, setPersons }) {
         )
       ) {
         const updatedPerson = { ...curPerson, number: newNumber };
-        updateNumber(updatedPerson)
-          .then(res => {
-            console.log(res);
-            const personsUpdated = persons.map(person => {
-              return person.id === updatedPerson.id ? updatedPerson : person;
-            });
-            setPersons(personsUpdated);
-          })
-          .catch(err => {
-            console.log(err);
+        try {
+          const res = await updateNumber(updatedPerson);
+          const personsUpdated = persons.map(person => {
+            return person.id === updatedPerson.id ? updatedPerson : person;
           });
+          setPersons(personsUpdated);
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+
+        // updateNumber(updatedPerson)
+        //   .then(res => {
+        //     console.log(res);
+        //     const personsUpdated = persons.map(person => {
+        //       return person.id === updatedPerson.id ? updatedPerson : person;
+        //     });
+        //     setPersons(personsUpdated);
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   });
       }
       return;
     }
