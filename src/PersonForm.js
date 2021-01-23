@@ -9,6 +9,15 @@ export default function PersonForm({ persons, setPersons }) {
   const [newName, setNewName] = useState('Add name here');
   const [newNumber, setNewNumber] = useState('Add number here');
 
+  const showTemporaryMessage = (message, style) => {
+    setMessage(message);
+    setClassStyle(style);
+
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
+
   const handleSubmit = async event => {
     event.preventDefault();
     let hasName = persons.map(person => person.name).includes(newName);
@@ -29,22 +38,17 @@ export default function PersonForm({ persons, setPersons }) {
           });
           setPersons(personsUpdated);
           console.log(res);
-          setMessage(
-            `${curPerson.name}'s number has been updated from ${curPerson.number} to ${newNumber}`
+          showTemporaryMessage(
+            `${curPerson.name}'s number has been updated from ${curPerson.number} to ${newNumber}`,
+            'success'
           );
-          setClassStyle('success');
-          setTimeout(() => {
-            setMessage(null);
-          }, 5000);
         } catch (error) {
           console.log(curPerson);
-          setMessage(
-            `Information of ${curPerson.name} has already been removed from server`
-          );
           setClassStyle('error');
-          setTimeout(() => {
-            setMessage(null);
-          }, 5000);
+          showTemporaryMessage(
+            `Information of ${curPerson.name} has already been removed from server`,
+            'error'
+          );
           console.log(error);
         }
 
@@ -67,11 +71,7 @@ export default function PersonForm({ persons, setPersons }) {
       .then(res => {
         console.log(res.data);
         setPersons([...persons, newPerson]);
-        setMessage(`Added ${newPerson.name}`);
-        setClassStyle('success');
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
+        showTemporaryMessage(`Added ${newPerson.name}`, 'success');
       })
       .catch(err => {
         console.log(err);
