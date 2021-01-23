@@ -6,20 +6,31 @@ export default function Filter({ persons, filterName, setPersons }) {
     person.name.toLowerCase().startsWith(filterName.toLowerCase())
   );
 
-  const deleteNumber = personToDelete => {
+  const deleteNumber = async personToDelete => {
     console.log(personToDelete);
     if (window.confirm(`Delete ${personToDelete.name}`)) {
-      deleteNum(personToDelete.id)
-        .then(res => {
-          const updatedPersons = persons.filter(
-            person => person.id !== personToDelete.id
-          );
-          setPersons(updatedPersons);
-          console.log('success', res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      try {
+        const res = await deleteNum(personToDelete.id);
+        const updatedPersons = persons.filter(
+          person => person.id !== personToDelete.id
+        );
+        setPersons(updatedPersons);
+        console.log('success', res);
+      } catch (err) {
+        console.log(err);
+      }
+
+      // deleteNum(personToDelete.id)
+      //   .then(res => {
+      //     const updatedPersons = persons.filter(
+      //       person => person.id !== personToDelete.id
+      //     );
+      //     setPersons(updatedPersons);
+      //     console.log('success', res);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
     }
   };
 
