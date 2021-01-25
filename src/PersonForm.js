@@ -34,7 +34,7 @@ export default function PersonForm({ persons, setPersons }) {
         try {
           const res = await updateNumber(updatedPerson);
           const personsUpdated = persons.map(person => {
-            return person.id === updatedPerson.id ? updatedPerson : person;
+            return person._id === updatedPerson._id ? updatedPerson : person;
           });
           setPersons(personsUpdated);
           console.log(res);
