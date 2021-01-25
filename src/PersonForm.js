@@ -66,14 +66,16 @@ export default function PersonForm({ persons, setPersons }) {
       }
       return;
     }
+
     const newPerson = { name: newName, number: newNumber, id: Date.now() };
-    addNumber(newPerson)
+    await addNumber(newPerson)
       .then(res => {
         console.log(res.data);
         setPersons([...persons, newPerson]);
         showTemporaryMessage(`Added ${newPerson.name}`, 'success');
       })
       .catch(err => {
+        showTemporaryMessage(err.message, 'error');
         console.log(err);
       });
   };
