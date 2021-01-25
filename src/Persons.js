@@ -10,9 +10,9 @@ export default function Filter({ persons, filterName, setPersons }) {
     console.log(personToDelete);
     if (window.confirm(`Delete ${personToDelete.name}`)) {
       try {
-        const res = await deleteNum(personToDelete.id);
+        const res = await deleteNum(personToDelete._id);
         const updatedPersons = persons.filter(
-          person => person.id !== personToDelete.id
+          person => person.id !== personToDelete._id
         );
         setPersons(updatedPersons);
         console.log('success', res);
