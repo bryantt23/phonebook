@@ -12,7 +12,7 @@ export default function Filter({ persons, filterName, setPersons }) {
       try {
         const res = await deleteNum(personToDelete._id);
         const updatedPersons = persons.filter(
-          person => person.id !== personToDelete._id
+          person => person._id !== personToDelete._id
         );
         setPersons(updatedPersons);
         console.log('success', res);
